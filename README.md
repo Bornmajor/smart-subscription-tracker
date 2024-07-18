@@ -40,3 +40,24 @@ Ensure you have the following installed:
 ## Includes
 1. Make sure you first import database smark-park.sql located in /Database folder.
 
+# Demo shots
+## Authentication
+<img width="960" alt="firefox_uiYvmkfqYN" src="https://github.com/user-attachments/assets/6333c001-4452-4a5d-b264-98fd81b20d2d">
+<img width="959" alt="a16LpadfH5" src="https://github.com/user-attachments/assets/dacdfd8d-8c86-458a-aea1-5c0e729fc30b">
+
+## Dashboard
+<img width="781" alt="firefox_kGkBaWY5D8" src="https://github.com/user-attachments/assets/c647b990-6679-4df3-86bc-d5c1c765b69c">
+<img width="743" alt="firefox_6SgnhOrnZT" src="https://github.com/user-attachments/assets/70dfec93-9814-4362-baed-c027b33b7e86">
+<img width="960" alt="UtxDCJuzcc" src="https://github.com/user-attachments/assets/89baadee-f4eb-4276-b314-b6df300df18d">
+<img width="752" alt="n2OziC4Z7a" src="https://github.com/user-attachments/assets/55088e2d-c365-482d-93e6-2f0c0c9262f4">
+<img width="947" alt="firefox_YW1JdVcPOi" src="https://github.com/user-attachments/assets/58338ddc-662a-41c1-8d02-65c063acf1bf">
+
+
+## Support
+<img width="960" alt="firefox_vQLacPOIIh" src="https://github.com/user-attachments/assets/4fa40a6f-e8b4-42fb-94d4-e3b7ae5e759e">
+<img width="949" alt="firefox_Y0TuML3xUr" src="https://github.com/user-attachments/assets/58e1a150-793c-4f07-9ea7-9c791a9731af">
+
+## Payment
+
+<img width="958" alt="firefox_rKdu3O3tLt" src="https://github.com/user-attachments/assets/22e8eedf-610c-4ed7-8629-11ec0fdb87de">
+<img width="959" alt="YYogzrWL8V" src="https://github.com/user-attachments/assets/a698d49f-547f-4f24-8f53-bccfe026ec00">
