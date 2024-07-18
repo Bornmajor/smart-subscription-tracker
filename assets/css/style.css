@@ -1,0 +1,298 @@
+
+.navbar{
+    background-color: #bc2132;
+}
+.navbar-toggler{
+    background-color: white;
+}
+.logo-title{
+    color: white;
+}
+.navbar .nav-link {
+    color: white;
+}
+.btn-primary{
+    background-color: #2e591c;
+    color:'white';
+    border: none;
+    /* font-weight: 800; */
+   
+
+}
+.btn-primary:hover{
+    background-color:green;
+
+}
+.btn-primary .active{
+  background-color: #2e591c;
+}
+.btn-warning{
+  background-color: #e5a309;
+  border: none;
+}
+
+.btn-secondary{
+    background-color: transparent;
+    border: 1px solid #2e591c;
+    color: #2e591c;
+}
+.btn-secondary:hover,.btn-secondary .active{
+    background-color: white;
+    border: 1.5px solid green;
+    color: green;
+    font-weight: 600;
+
+}
+.modal-header,.modal-footer{
+  border: none;
+
+
+}
+
+
+/* .btn-close{
+  background-color: white;
+} */
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form_container{
+  background-color: #f1f1f1;
+  /* display: flex; */
+  margin:30px;
+  padding: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  border-radius: 10px;
+}
+.form_content{
+  padding:30px;
+}
+.form_cover_img{
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  /* display: none; */
+}
+.form_cover_img img{
+width: 80px;
+
+}
+.form-header{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.app-links{
+  color: #2e591c;
+  text-decoration: none;
+
+}
+.app-links:hover{
+  color: #1f3615;
+  font-weight: 700;
+  text-decoration: none;
+
+}
+
+
+.form-link-separator{
+display: flex;
+
+}
+
+
+.form-link-separator .forgot-pwd{
+  margin-left: 40px;
+}
+
+/*sidebar*/
+
+#sidebarToggleTop{
+  color:#f6b417;
+}
+.sidebar{
+  background-color: #e5a309;
+  }
+
+  .subscription-card .card-body{
+   display: flex;
+   justify-content: space-between;
+   font-size: 14px;
+  }
+
+  .subscription-card{
+  
+    margin-right: 10px;
+    width:  18rem;
+    flex: 0 0 250px; /* Set the width of each card */
+  }
+  .subscription-card img{
+    /* width: 100%; */
+    object-fit: cover;
+    filter: blur(0.5px) brightness(70%);
+  }
+
+  .container-cards{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    align-items: flex-end;
+    width: 100%; /* Set the desired width */
+    margin: 0 auto; /* Center the container */
+    padding:10px 0; 
+  }
+
+  
+  .container-cards::-webkit-scrollbar {
+    display: none;
+  }
+  /*firefox*/
+  .container-cards{
+    scrollbar-width: none;
+  }
+  
+  /*edge explorer*/
+  .container-cards {
+    -ms-overflow-style: none;
+  }
+  .package-car-details{
+  display: flex;
+  align-items: center;
+  margin:10px 0;
+  }
+  .package-details{
+    margin: 20px 0;
+  }
+  .payment_success_msg{
+    display:flex ;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+    margin: 40px;
+  }
+  .payment_success_msg img{
+    width: 100%;
+    max-width: 120px;
+  }
+
+  .plate_no_entry{
+    display: flex;
+    align-items: center;
+  
+  }
+  .vehicle-saved-card{
+    margin-right:10px;
+    width: 18rem;
+  }
+
+  .no_items{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  .no_items img{
+    width: 100%;
+    max-width: 250px;
+  }
+  /*support*/
+  .tab-content{
+    padding:20px;
+    background-color: #ffff;
+  }
+
+  .ticket-card{
+    width: 25rem;
+    margin:10px;
+  }
+  .ticket-dropdown{
+    position: absolute;
+    right:14px;
+    top:13px;
+  }
+  /*support*/
+
+  /*auth*/
+
+  .inline-eye{
+    position: absolute;
+    right:10px;
+    top:20px;
+  }
+   .pwd_validation_msg{
+    color:red;
+   }  
+.radio-vehicle-btn{
+  margin-right: 8px;
+  
+}
+  /*auth*/
+
+  /*loader*/
+  
+  .loader_container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .loader {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #e5a309;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /*reset password*/
+  .validation_guide{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .validation_guide span{
+    display: block;
+  }
+
+@media screen  and (max-width:380px){
+
+   .logo-title{
+        display: none;
+    }
+    
+  }
+
+  @media screen  and (max-width:450px){
+
+    .form-link-separator{
+         flex-direction: column;
+     }
+     .form-link-separator .forgot-pwd{
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+   }
