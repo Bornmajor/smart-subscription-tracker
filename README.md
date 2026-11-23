@@ -18,8 +18,38 @@ The API will support only these subscription operations:
 | `GET` | `/api/subscriptions/:id` | Fetch one subscription |
 | `PUT` | `/api/subscriptions/:id` | Create or update a subscription by ID (last-write-wins) |
 | `DELETE` | `/api/subscriptions/:id` | Soft-delete a subscription |
+| `POST` | `/api/devices` | Register a phone's push token (or update its reminder setting) |
+| `GET` | `/api/devices` | List registered phones |
+| `DELETE` | `/api/devices/:token` | Unregister a phone (token URL-encoded) |
 
 All endpoints will require the shared API key.
+
+## Push notification devices
+
+The mobile app registers each phone's **FCM registration token** (its push
+address) so the server can send "subscription about to renew" reminders.
+
+```http
+POST /api/devices
+Content-Type: application/json
+x-api-key: YOUR_API_KEY
+
+{
+  "token": "<FCM registration token>",
+  "platform": "android",
+  "reminderTiming": "one_day_before"
+}
+```
+
+| Field | Values | Default |
+| --- | --- | --- |
+| `token` | FCM registration token (required, unique) | — |
+| `platform` | `android`, `ios` | `android` |
+| `reminderTiming` | `one_day_before`, `on_due_date` | `one_day_before` |
+
+Posting the same token again **updates** that device (new setting, fresh
+`lastSeenAt`) instead of creating a duplicate — the app re-registers on every
+start and whenever Firebase gives it a new token.
 
 ## Offline sync support
 
@@ -104,6 +134,7 @@ The command runs test files sequentially to keep database cleanup reliable.
 | `test/apiKeyMiddleware.test.js` | A missing key returns `401`, an invalid key returns `401`, and the configured key allows the request to continue. |
 | `test/subscriptionModel.test.js` | Valid subscription data passes schema validation; all four billing cycles are accepted; IDs are UUID strings and client-supplied IDs are kept; invalid prices, billing cycles, and dates are rejected. |
 | `test/subscriptionApi.test.js` | The protected HTTP API supports create, fetch all, fetch one, update, delete, `404` for absent subscriptions and unknown IDs, `400` for invalid data, and `404` for unknown URLs. |
+| `test/deviceApi.test.js` | Device registration: API key required, create, default setting, re-registering updates instead of duplicating, validation, listing, and idempotent unregistering. |
 | `test/subscriptionSync.test.js` | Offline sync: `PUT` creates under the client ID, retries don't duplicate, last-write-wins, protected fields are ignored, soft deletes and tombstones, deletes win over later edits, `serverUpdatedAt`, and delta pulls with `updatedSince`. |
 | `test/errorMiddleware.test.js` | Mongoose client-data errors produce `400`; unexpected server errors produce `500`. |
 | `test-support/database.js` | Shared helpers connect to, clean, and disconnect from the dedicated test database. |
@@ -111,7 +142,7 @@ The command runs test files sequentially to keep database cleanup reliable.
 When every test passes, the output ends with:
 
 ```text
-ℹ pass 32
+ℹ pass 39
 ℹ fail 0
 ```
 
