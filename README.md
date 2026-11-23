@@ -51,6 +51,43 @@ Posting the same token again **updates** that device (new setting, fresh
 `lastSeenAt`) instead of creating a duplicate — the app re-registers on every
 start and whenever Firebase gives it a new token.
 
+## Send a push notification (test)
+
+The server sends notifications through **Firebase Cloud Messaging (FCM)**
+using `firebase-admin`. It needs a **service-account key**, a secret that can
+send to every user, so it is never committed.
+
+1. Firebase console → ⚙ Project settings → **Service accounts** →
+   **Generate new private key**.
+2. Save the downloaded file in the project folder as
+   `firebase-service-account.json` (git-ignored).
+3. In `.env`: `FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-service-account.json`,
+   then restart the server.
+
+Send a notification to **every registered device**, right now:
+
+```http
+POST /api/notifications/test
+Content-Type: application/json
+x-api-key: YOUR_API_KEY
+
+{
+  "title": "Netflix renews tomorrow",
+  "body": "KES 1,100 will be charged",
+  "data": { "subscriptionId": "42" }
+}
+```
+
+```json
+{ "message": "Sent to 1 of 1 device(s).", "deviceCount": 1, "successCount": 1, "failureCount": 0, "removedTokens": [] }
+```
+
+Each message uses the app's `subscription_reminders` Android channel, `high`
+priority (delivered at once, even in Doze) and a 12-hour TTL (dropped if the
+phone stays offline longer). Tokens FCM reports as permanently dead
+(`registration-token-not-registered`, `invalid-registration-token`) are
+deleted automatically. Without a key configured, the endpoint returns `503`.
+
 ## Offline sync support
 
 The API is designed for an offline-first mobile app that changes data while
@@ -135,6 +172,7 @@ The command runs test files sequentially to keep database cleanup reliable.
 | `test/subscriptionModel.test.js` | Valid subscription data passes schema validation; all four billing cycles are accepted; IDs are UUID strings and client-supplied IDs are kept; invalid prices, billing cycles, and dates are rejected. |
 | `test/subscriptionApi.test.js` | The protected HTTP API supports create, fetch all, fetch one, update, delete, `404` for absent subscriptions and unknown IDs, `400` for invalid data, and `404` for unknown URLs. |
 | `test/deviceApi.test.js` | Device registration: API key required, create, default setting, re-registering updates instead of duplicating, validation, listing, and idempotent unregistering. |
+| `test/notificationService.test.js` | Sending: FCM message shape (channel, priority, TTL, string data), sending to all devices, removing dead tokens, the test endpoint (validation, API key, 503 without Firebase). |
 | `test/subscriptionSync.test.js` | Offline sync: `PUT` creates under the client ID, retries don't duplicate, last-write-wins, protected fields are ignored, soft deletes and tombstones, deletes win over later edits, `serverUpdatedAt`, and delta pulls with `updatedSince`. |
 | `test/errorMiddleware.test.js` | Mongoose client-data errors produce `400`; unexpected server errors produce `500`. |
 | `test-support/database.js` | Shared helpers connect to, clean, and disconnect from the dedicated test database. |
@@ -142,7 +180,7 @@ The command runs test files sequentially to keep database cleanup reliable.
 When every test passes, the output ends with:
 
 ```text
-ℹ pass 39
+ℹ pass 45
 ℹ fail 0
 ```
 
@@ -216,7 +254,8 @@ API client (Postman, Thunder Client, or frontend)
 subscription-tracker-app/
 ├── src/
 │   ├── config/
-│   │   └── db.js                      # MongoDB connection
+│   │   ├── db.js                      # MongoDB connection
+│   │   └── firebase.js                # FCM client (service-account key)
 │   ├── controllers/
 │   │   └── subscriptionController.js  # CRUD request logic
 │   ├── middleware/
@@ -225,6 +264,8 @@ subscription-tracker-app/
 │   │   └── notFoundMiddleware.js      # Unknown-route response
 │   ├── models/
 │   │   └── Subscription.js            # Database schema
+│   ├── services/
+│   │   └── notificationService.js     # Sends pushes, removes dead tokens
 │   ├── routes/
 │   │   └── subscriptionRoutes.js      # Endpoint definitions
 │   ├── app.js                         # Express configuration

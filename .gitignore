@@ -1,2 +1,4 @@
 node_modules
 .env
+# Firebase service-account key: a SECRET that can send to all users. Never commit it.
+firebase-service-account*.json

@@ -2,6 +2,7 @@ const express = require('express'); // Imports the Express library used to creat
 const path = require('path'); // Imports Node.js path helpers for safely locating the public dashboard folder.
 const subscriptionRoutes = require('./routes/subscriptionRoutes'); // Imports the protected subscription route group.
 const deviceRoutes = require('./routes/deviceRoutes'); // Imports the protected device route group (push notification tokens).
+const notificationRoutes = require('./routes/notificationRoutes'); // Imports the protected notification route group (sending pushes).
 const notFoundMiddleware = require('./middleware/notFoundMiddleware'); // Imports the handler for URLs that do not match a route.
 const errorMiddleware = require('./middleware/errorMiddleware'); // Imports the handler for errors passed through Express.
 
@@ -16,6 +17,7 @@ app.get('/api/health', (req, res) => { // Registers a public GET endpoint at /ap
 
 app.use('/api/subscriptions', subscriptionRoutes); // Mounts every subscription route below the shared /api/subscriptions URL prefix.
 app.use('/api/devices', deviceRoutes); // Mounts every device route below the /api/devices URL prefix.
+app.use('/api/notifications', notificationRoutes); // Mounts every notification route below the /api/notifications URL prefix.
 
 app.use(notFoundMiddleware); // Handles requests only after Express cannot find a matching route above.
 app.use(errorMiddleware); // Handles errors after routes and other middleware have had a chance to run.
